@@ -8,7 +8,6 @@ import hudson.plugins.violations.model.FullFileModel;
 import hudson.plugins.violations.model.Violation;
 import hudson.plugins.violations.util.StringUtil;
 import hudson.remoting.VirtualChannel;
-import hudson.util.IOException2;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +36,7 @@ public class ViolationsCollector implements FileCallable<ViolationsReport> {
 
     /**
      * Constructor.
-     * 
+     *
      * @param mavenProject
      *            true if this a maven project, false otherwise
      * @param targetDir
@@ -59,7 +58,7 @@ public class ViolationsCollector implements FileCallable<ViolationsReport> {
 
     /**
      * Create a report.
-     * 
+     *
      * @param workspace
      *            the current workspace.
      * @param channel
@@ -121,7 +120,7 @@ public class ViolationsCollector implements FileCallable<ViolationsReport> {
         try {
             new GenerateXML(targetDir, model, config).execute();
         } catch (InterruptedException ex) {
-            throw new IOException2(ex);
+            throw new IOException(ex);
         }
 
         // -----

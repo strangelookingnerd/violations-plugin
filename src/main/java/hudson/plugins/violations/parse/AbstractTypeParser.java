@@ -7,8 +7,6 @@ import java.io.Reader;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import hudson.util.IOException2;
-
 import hudson.plugins.violations.ViolationsParser;
 
 import hudson.plugins.violations.model.FullBuildModel;
@@ -59,7 +57,7 @@ public abstract class AbstractTypeParser
         } catch (IOException ex) {
             throw ex;
         } catch (Exception ex) {
-            throw new IOException2("Cannot parse " + fileName, ex);
+            throw new IOException("Cannot parse " + fileName, ex);
         } finally {
             CloseUtil.close(in, !success);
         }

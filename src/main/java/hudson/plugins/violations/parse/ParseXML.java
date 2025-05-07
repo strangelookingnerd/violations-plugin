@@ -1,7 +1,6 @@
 package hudson.plugins.violations.parse;
 
 import hudson.plugins.violations.util.CloseUtil;
-import hudson.util.IOException2;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,7 +44,7 @@ public final class ParseXML {
         } catch (IOException ex) {
             throw ex;
         } catch (Exception ex) {
-            throw new IOException2(ex);
+            throw new IOException(ex);
         }
     }
 
@@ -74,7 +73,7 @@ public final class ParseXML {
             throw ex;
         } catch (Exception ex) {
             seenException = true;
-            throw new IOException2(ex);
+            throw new IOException(ex);
         } finally {
             CloseUtil.close(in, seenException);
         }

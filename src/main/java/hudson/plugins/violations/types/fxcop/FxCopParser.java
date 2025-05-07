@@ -5,7 +5,6 @@ import hudson.plugins.violations.model.FullBuildModel;
 import hudson.plugins.violations.model.FullFileModel;
 import hudson.plugins.violations.model.Severity;
 import hudson.plugins.violations.model.Violation;
-import hudson.util.IOException2;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,8 +22,8 @@ import org.xml.sax.SAXException;
 
 /**
  * Parses a fxcop xml report file.
- * 
- * 
+ *
+ *
  * This does not uses the XML Pull parser as it can not handle the FxCop XML
  * files. The bug is registered at Sun as http: //bugs.sun.com/bugdatabase/view_bug.do?bug_id=4508058
  */
@@ -37,7 +36,7 @@ public class FxCopParser implements ViolationsParser {
     public void parse(FullBuildModel model, File projectPath, String fileName, String[] sourcePaths) throws IOException {
         this.projectPath = projectPath;
         this.model = model;
-        
+
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder;
         try {
@@ -52,9 +51,9 @@ public class FxCopParser implements ViolationsParser {
             parseTargets(XmlElementUtil.getFirstElementByTagName(rootElement, "Targets"));
             // TODO parse notes
         } catch (ParserConfigurationException pce) {
-            throw new IOException2(pce);
+            throw new IOException(pce);
         } catch (SAXException se) {
-            throw new IOException2(se);
+            throw new IOException(se);
         }
     }
 
@@ -170,13 +169,13 @@ public class FxCopParser implements ViolationsParser {
         violation.setType("fxcop");
         violation.setSource(category + "#" + checkId);
         setSeverityLevel(violation, getString(issue, "Level"));
-        
+
         StringBuilder msgBuilder = new StringBuilder();
         if (subName != null) {
         	msgBuilder.append(subName);
         	msgBuilder.append(" ");
         }
-        
+
         FxCopRule rule = ruleSet.getRule(category, checkId);
         if (rule != null) {
         	msgBuilder.append("<a href=\"");

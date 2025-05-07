@@ -2,7 +2,6 @@ package hudson.plugins.violations.parse;
 
 import hudson.plugins.violations.model.FullBuildModel;
 import hudson.plugins.violations.model.FullFileModel;
-import hudson.util.IOException2;
 
 import java.io.IOException;
 import java.io.File;
@@ -16,7 +15,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import hudson.plugins.violations.ViolationsParser;
-   
+
 public abstract class ViolationsDOMParser
     implements ViolationsParser {
 
@@ -65,7 +64,7 @@ public abstract class ViolationsDOMParser
         } catch (IOException ex) {
             throw ex;
         } catch (Exception ex) {
-            throw new IOException2("Cannot parse " + fileName, ex);
+            throw new IOException("Cannot parse " + fileName, ex);
         } finally {
             // ? terminate the parser
         }

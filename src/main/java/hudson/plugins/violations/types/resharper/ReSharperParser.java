@@ -7,7 +7,6 @@ import hudson.plugins.violations.model.Severity;
 import hudson.plugins.violations.model.Violation;
 import hudson.plugins.violations.util.AbsoluteFileFinder;
 import hudson.plugins.violations.util.HashMapWithDefault;
-import hudson.util.IOException2;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -138,9 +137,9 @@ public class ReSharperParser implements ViolationsParser {
                 fullFileModel.addViolation(violation);
             }
         } catch (final ParserConfigurationException pce) {
-            throw new IOException2(pce);
+            throw new IOException(pce);
         } catch (final SAXException se) {
-            throw new IOException2(se);
+            throw new IOException(se);
         }
     }
 
